@@ -1,0 +1,15 @@
+{
+  "name": "dev-news",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "start": "sirv --dev --cors"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "sirv-cli": "^0.4.5"
+  }
+}
