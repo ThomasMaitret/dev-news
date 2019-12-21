@@ -1,6 +1,5 @@
 const subreddits = [
   "angular2",
-  "vuejs",
   "node",
   "javascript",
   "webdev",
@@ -17,7 +16,7 @@ const subreddits = [
     await Promise.all(
       subreddits.map(async sub => {
         const response = await fetch(
-          `https://www.reddit.com/r/${sub}/hot.json`
+          `https://www.reddit.com/r/${sub}/hot.json?limit=5`
         );
         const listing = await response.json();
         listings.push(listing);
@@ -53,7 +52,14 @@ appendListingsToDOM = listings => {
     subreddit.classList.add("subreddit");
     subreddit.textContent = data.subreddit;
 
+    const icon = document.createElement("img");
+    icon.alt = `${data.domain} favicon`;
+    icon.src = `https://www.google.com/s2/favicons?domain_url=${data.url}`;
+    icon.loading = "lazy";
+    icon.classList.add("site-favicon");
+
     const li = document.createElement("li");
+    li.appendChild(icon);
     li.appendChild(link);
     li.appendChild(domain);
     li.appendChild(document.createElement("br"));
@@ -64,17 +70,26 @@ appendListingsToDOM = listings => {
     fragment.appendChild(li);
   });
 
-  document.querySelector(".ul").textContent = null;
-  document.querySelector(".container").append(fragment);
+  document.querySelector(".posts").textContent = null;
+  document.querySelector(".posts").append(fragment);
 };
 
 getSortedPostsFromListings = listings => {
-  return listings
+  const posts = listings
     .reduce((array, listing) => {
       array.push(
         ...Object.values(listing.data.children).map(item => item.data)
       );
       return array;
-    }, [])
-    .sort((a, b) => new Date(b.created * 1000) - new Date(a.created * 1000));
+    }, []);
+
+  const uniquePosts = posts.reduce((array, currentPost) => {
+    const x = array.find(post => post.url === currentPost.url);
+    if (!x) return array.concat([currentPost]);
+    return array;
+  }, []);
+
+  const sortedPosts = uniquePosts.sort((a, b) => new Date(b.created * 1000) - new Date(a.created * 1000));
+
+  return sortedPosts;
 };

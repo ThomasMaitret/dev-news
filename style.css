@@ -24,7 +24,7 @@ ul {
 
 li {
   list-style: none;
-  margin: 1.75rem 0;
+  margin: 2rem 0;
   max-width: 900px;
 }
 
@@ -47,10 +47,14 @@ span {
 .subreddit {
   text-transform: uppercase;
   display: inline-block;
-  margin-top: 0.75rem;
+  margin-top: 0.5rem;
   font-size: 0.85rem;
 }
 
 .date {
   color: #777;
+}
+
+.site-favicon {
+  margin-right: .5rem;
 }

@@ -1,15 +1,21 @@
 {
   "name": "dev-news",
   "version": "1.0.0",
-  "description": "",
+  "description": "Developer News",
   "main": "main.js",
+  "browserslist": [
+    "maintained node versions"
+  ],
   "scripts": {
-    "start": "sirv --dev --cors"
+    "start": "rimraf dist && parcel index.html",
+    "build": "rimraf dist && parcel build index.html --public-url . --no-source-maps --experimental-scope-hoisting"
   },
   "keywords": [],
-  "author": "",
+  "author": "Thomas Maitret-Richard",
   "license": "ISC",
   "devDependencies": {
-    "sirv-cli": "^0.4.5"
+    "parcel-bundler": "^1.12.4",
+    "parcel-plugin-inliner": "^1.0.10",
+    "rimraf": "^3.0.0"
   }
 }
