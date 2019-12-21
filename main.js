@@ -1,44 +1,80 @@
-fetch("https://www.reddit.com/r/angular2/hot.json")
-  .then(response => response.json())
-  .then(posts => {
-    const fragment = document.createDocumentFragment();
-    const ul = document.querySelector(".ul");
-    Object.values(posts.data.children).forEach(post => {
-      const li = document.createElement("li");
+const subreddits = [
+  "angular2",
+  "vuejs",
+  "node",
+  "javascript",
+  "webdev",
+  "frontend",
+  "coding",
+  "css",
+  "html5"
+];
 
-      const a = document.createElement("a");
-      a.textContent = post.data.title;
-      a.href = post.data.url;
-      a.target = "_blank";
-      a.rel = "noopener";
+(async () => {
+  try {
+    const listings = [];
 
-      const span = document.createElement("span");
-      span.textContent = ` (${post.data.domain})`;
+    await Promise.all(
+      subreddits.map(async sub => {
+        const response = await fetch(
+          `https://www.reddit.com/r/${sub}/hot.json`
+        );
+        const listing = await response.json();
+        listings.push(listing);
+      })
+    );
 
-      li.appendChild(a);
-      li.appendChild(span);
-
-      li.appendChild(document.createElement("br"));
-
-      const date = document.createElement("span");
-      date.textContent = new Date(
-        post.data.created * 1000
-      ).toLocaleDateString();
-      date.classList.add("date");
-
-      const subreddit = document.createElement("span");
-      subreddit.classList.add("subreddit");
-      subreddit.textContent = post.data.subreddit;
-
-      li.appendChild(subreddit);
-      li.append(" • ");
-      li.appendChild(date);
-
-      fragment.appendChild(li);
-    });
-    ul.textContent = null;
-    document.querySelector(".container").append(fragment);
-  })
-  .catch(error => {
+    appendListingsToDOM(listings);
+  } catch (error) {
     throw new Error(error);
+  }
+})();
+
+appendListingsToDOM = listings => {
+  const fragment = document.createDocumentFragment();
+
+  const posts = getSortedPostsFromListings(listings);
+
+  posts.forEach(data => {
+    const link = document.createElement("a");
+    link.textContent = data.title;
+    link.href = data.url;
+    link.target = "_blank";
+    link.rel = "noopener";
+
+    const domain = document.createElement("span");
+    domain.textContent = ` (${data.domain})`;
+
+    const date = document.createElement("span");
+    date.textContent = new Date(data.created * 1000).toLocaleDateString();
+    date.classList.add("date");
+
+    const subreddit = document.createElement("span");
+    subreddit.classList.add("subreddit");
+    subreddit.textContent = data.subreddit;
+
+    const li = document.createElement("li");
+    li.appendChild(link);
+    li.appendChild(domain);
+    li.appendChild(document.createElement("br"));
+    li.appendChild(subreddit);
+    li.append(" • ");
+    li.appendChild(date);
+
+    fragment.appendChild(li);
   });
+
+  document.querySelector(".ul").textContent = null;
+  document.querySelector(".container").append(fragment);
+};
+
+getSortedPostsFromListings = listings => {
+  return listings
+    .reduce((array, listing) => {
+      array.push(
+        ...Object.values(listing.data.children).map(item => item.data)
+      );
+      return array;
+    }, [])
+    .sort((a, b) => new Date(b.created * 1000) - new Date(a.created * 1000));
+};
