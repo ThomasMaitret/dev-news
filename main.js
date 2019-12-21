@@ -58,7 +58,7 @@ appendListingsToDOM = listings => {
 
     const icon = document.createElement("img");
     icon.alt = `${data.domain} favicon`;
-    icon.src = `https://www.google.com/s2/favicons?domain_url=${data.url}`;
+    icon.src = `https://www.google.com/s2/favicons?domain_url=${data.domain}`;
     icon.classList.add("site-icon");
 
     const li = document.createElement("li");
