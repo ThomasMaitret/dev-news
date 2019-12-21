@@ -46,7 +46,6 @@ appendListingsToDOM = listings => {
 
     const date = document.createElement("span");
     date.textContent = new Date(data.created * 1000).toLocaleDateString();
-    date.classList.add("date");
 
     const subreddit = document.createElement("span");
     subreddit.classList.add("subreddit");

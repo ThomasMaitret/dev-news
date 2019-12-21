@@ -41,7 +41,7 @@ a:hover {
 }
 
 span {
-  color: #777;
+  color: #666;
 }
 
 .subreddit {
@@ -49,10 +49,6 @@ span {
   display: inline-block;
   margin-top: 0.5rem;
   font-size: 0.85rem;
-}
-
-.date {
-  color: #777;
 }
 
 .site-favicon {
