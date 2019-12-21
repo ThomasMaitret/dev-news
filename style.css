@@ -30,7 +30,7 @@ li {
 }
 
 a:not(.skip-link) {
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   font-weight: 600;
   text-decoration: none;
   color: #222;
@@ -68,4 +68,10 @@ span {
 
 .skip-link:focus {
   top: 0;
+}
+
+@media (min-width: 1024px) {
+  a:not(.skip-link) {
+    font-size: 1.5rem;
+  }
 }
