@@ -15,8 +15,13 @@ const subreddits = [
 
     await Promise.all(
       subreddits.map(async sub => {
+
         const response = await fetch(
-          `https://www.reddit.com/r/${sub}/hot.json?limit=10`
+          `https://www.reddit.com/r/${sub}/hot.json?limit=10`,
+          {
+            method: 'GET',
+            cache: 'default'
+          }
         );
         const listing = await response.json();
         listings.push(listing);
@@ -54,8 +59,7 @@ appendListingsToDOM = listings => {
     const icon = document.createElement("img");
     icon.alt = `${data.domain} favicon`;
     icon.src = `https://www.google.com/s2/favicons?domain_url=${data.url}`;
-    icon.loading = "lazy";
-    icon.classList.add("site-favicon");
+    icon.classList.add("site-icon");
 
     const li = document.createElement("li");
     li.appendChild(icon);

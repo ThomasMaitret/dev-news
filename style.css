@@ -52,8 +52,10 @@ span {
   font-size: 0.85rem;
 }
 
-.site-favicon {
+.site-icon {
   margin-right: .5rem;
+  width: 16px;
+  height: 16px;
 }
 
 .skip-link {
