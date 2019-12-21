@@ -16,7 +16,7 @@ const subreddits = [
     await Promise.all(
       subreddits.map(async sub => {
         const response = await fetch(
-          `https://www.reddit.com/r/${sub}/hot.json?limit=5`
+          `https://www.reddit.com/r/${sub}/hot.json?limit=10`
         );
         const listing = await response.json();
         listings.push(listing);
