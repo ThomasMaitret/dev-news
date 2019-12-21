@@ -1,3 +1,7 @@
+import Darkmode from 'darkmode-js';
+
+new Darkmode().showWidget();
+
 const subreddits = [
   "angular2",
   "node",
@@ -34,7 +38,7 @@ const subreddits = [
   }
 })();
 
-appendListingsToDOM = listings => {
+const appendListingsToDOM = listings => {
   const fragment = document.createDocumentFragment();
 
   const posts = getSortedPostsFromListings(listings);
@@ -78,7 +82,7 @@ appendListingsToDOM = listings => {
   document.querySelector(".posts").append(fragment);
 };
 
-getSortedPostsFromListings = listings => {
+const getSortedPostsFromListings = listings => {
   const posts = listings
     .reduce((array, listing) => {
       array.push(
