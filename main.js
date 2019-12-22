@@ -1,7 +1,3 @@
-import Darkmode from 'darkmode-js';
-
-new Darkmode().showWidget();
-
 const subreddits = [
   "angular2",
   "node",
@@ -12,6 +8,18 @@ const subreddits = [
   "css",
   "html5"
 ];
+
+
+const currentTheme = localStorage.getItem('theme') ? localStorage.getItem('theme') : null;
+if (currentTheme) {
+  document.documentElement.setAttribute('data-theme', currentTheme);
+}
+
+document.querySelector('.theme-switcher').addEventListener("click", () => {
+  const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+  document.documentElement.setAttribute('data-theme', theme);
+  localStorage.setItem('theme', theme);
+}, { passive: true });
 
 (async () => {
   try {

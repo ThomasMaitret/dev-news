@@ -1,3 +1,15 @@
+:root {
+    --primary-color: #222;
+    --secondary-color: #666;
+    --bg-color: rgb(240, 240, 240);
+}
+
+[data-theme="dark"] {
+    --primary-color: #f0f0ff;
+    --secondary-color: #d4d4ff;
+    --bg-color: #11111b;
+}
+
 *,
 *::before,
 *::after {
@@ -10,6 +22,8 @@ body {
   font-size: 16px;
   font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
     Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  background-color: var(--bg-color);
+  color: var(--primary-color);
 }
 
 .container {
@@ -33,7 +47,7 @@ a:not(.skip-link) {
   font-size: 1.2rem;
   font-weight: 600;
   text-decoration: none;
-  color: #222;
+  color: var(--primary-color);
   line-height: 2rem;
 }
 
@@ -42,7 +56,7 @@ a:hover {
 }
 
 span {
-  color: #666;
+  color: var(--secondary-color);
 }
 
 .subreddit {
@@ -62,14 +76,25 @@ span {
   position: absolute;
   top: -40px;
   left: 0;
-  background: #000000;
-  color: white;
+  background: var(--primary-color);
+  color: var(--bg-color);
   padding: 8px;
   z-index: 100;
 }
 
 .skip-link:focus {
   top: 0;
+}
+
+.theme-switcher {
+  position: absolute;
+  right: 2rem;
+  bottom: 2rem;
+  width: 50px;
+  height: 50px;
+  background-color: var(--primary-color);
+  border-radius: 30px;
+  cursor: pointer;
 }
 
 @media (min-width: 1024px) {
