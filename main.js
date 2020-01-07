@@ -9,17 +9,25 @@ const subreddits = [
   "html5"
 ];
 
-
-const currentTheme = localStorage.getItem('theme') ? localStorage.getItem('theme') : null;
+const currentTheme = localStorage.getItem("theme")
+  ? localStorage.getItem("theme")
+  : null;
 if (currentTheme) {
-  document.documentElement.setAttribute('data-theme', currentTheme);
+  document.documentElement.setAttribute("data-theme", currentTheme);
 }
 
-document.querySelector('.theme-switcher').addEventListener("click", () => {
-  const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
-  document.documentElement.setAttribute('data-theme', theme);
-  localStorage.setItem('theme', theme);
-}, { passive: true });
+document.querySelector(".theme-switcher").addEventListener(
+  "click",
+  () => {
+    const theme =
+      document.documentElement.getAttribute("data-theme") === "dark"
+        ? "light"
+        : "dark";
+    document.documentElement.setAttribute("data-theme", theme);
+    localStorage.setItem("theme", theme);
+  },
+  { passive: true }
+);
 
 (async () => {
   try {
@@ -27,12 +35,11 @@ document.querySelector('.theme-switcher').addEventListener("click", () => {
 
     await Promise.all(
       subreddits.map(async sub => {
-
         const response = await fetch(
           `https://www.reddit.com/r/${sub}/hot.json?limit=10`,
           {
-            method: 'GET',
-            cache: 'default'
+            method: "GET",
+            cache: "default"
           }
         );
         const listing = await response.json();
@@ -70,7 +77,9 @@ const appendListingsToDOM = listings => {
 
     const icon = document.createElement("img");
     icon.alt = `${data.domain} favicon`;
-    const domainURL = data.domain.startsWith('self.') ? 'reddit.com' : data.domain;
+    const domainURL = data.domain.startsWith("self.")
+      ? "reddit.com"
+      : data.domain;
     icon.src = `https://www.google.com/s2/favicons?domain_url=${domainURL}&sz=16`;
     icon.classList.add("site-icon");
 
@@ -86,18 +95,15 @@ const appendListingsToDOM = listings => {
     fragment.appendChild(li);
   });
 
-  document.querySelector(".posts").textContent = null;
+  document.querySelector(".loading").remove();
   document.querySelector(".posts").append(fragment);
 };
 
 const getSortedPostsFromListings = listings => {
-  const posts = listings
-    .reduce((array, listing) => {
-      array.push(
-        ...Object.values(listing.data.children).map(item => item.data)
-      );
-      return array;
-    }, []);
+  const posts = listings.reduce((array, listing) => {
+    array.push(...Object.values(listing.data.children).map(item => item.data));
+    return array;
+  }, []);
 
   const uniquePosts = posts.reduce((array, currentPost) => {
     const x = array.find(post => post.url === currentPost.url);
@@ -105,7 +111,9 @@ const getSortedPostsFromListings = listings => {
     return array;
   }, []);
 
-  const sortedPosts = uniquePosts.sort((a, b) => new Date(b.created * 1000) - new Date(a.created * 1000));
+  const sortedPosts = uniquePosts.sort(
+    (a, b) => new Date(b.created * 1000) - new Date(a.created * 1000)
+  );
 
   return sortedPosts;
 };
