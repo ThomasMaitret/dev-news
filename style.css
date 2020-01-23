@@ -1,13 +1,13 @@
 :root {
-    --primary-color: #222;
-    --secondary-color: #666;
-    --bg-color: rgb(240, 240, 240);
+  --primary-color: #222;
+  --secondary-color: #666;
+  --bg-color: rgb(240, 240, 240);
 }
 
 [data-theme="dark"] {
-    --primary-color: #f0f0ff;
-    --secondary-color: #d4d4ff;
-    --bg-color: #11111b;
+  --primary-color: #f0f0ff;
+  --secondary-color: #d4d4ff;
+  --bg-color: #11111b;
 }
 
 *,
@@ -67,7 +67,7 @@ span {
 }
 
 .site-icon {
-  margin-right: .5rem;
+  margin-right: 0.5rem;
   width: auto;
   height: 16px;
 }

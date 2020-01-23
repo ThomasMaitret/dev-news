@@ -9,9 +9,7 @@ const subreddits = [
   "html5"
 ];
 
-const currentTheme = localStorage.getItem("theme")
-  ? localStorage.getItem("theme")
-  : null;
+const currentTheme = localStorage.getItem("theme") || null;
 if (currentTheme) {
   document.documentElement.setAttribute("data-theme", currentTheme);
 }
@@ -36,11 +34,7 @@ document.querySelector(".theme-switcher").addEventListener(
     await Promise.all(
       subreddits.map(async sub => {
         const response = await fetch(
-          `https://www.reddit.com/r/${sub}/hot.json?limit=10`,
-          {
-            method: "GET",
-            cache: "default"
-          }
+          `https://www.reddit.com/r/${sub}/hot.json?limit=10`
         );
         const listing = await response.json();
         listings.push(listing);
