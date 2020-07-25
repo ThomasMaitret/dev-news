@@ -4,20 +4,23 @@
   "description": "Developer News",
   "main": "main.js",
   "browserslist": [
-    "maintained node versions"
+    "last 1 chrome version",
+    "last 1 firefox version"
   ],
   "scripts": {
-    "start": "rimraf dist && parcel index.html",
-    "build": "rimraf dist && parcel build index.html --no-source-maps --experimental-scope-hoisting"
+    "start": "rimraf dist && parcel serve src/index.html",
+    "build": "rimraf dist && parcel build src/index.html --no-source-maps"
   },
   "keywords": [],
   "author": "Thomas Maitret-Richard",
   "license": "ISC",
+  "sideEffects": false,
   "devDependencies": {
-    "eslint": "^6.8.0",
+    "eslint": "^7.5.0",
+    "parcel": "^2.0.0-beta.1",
     "parcel-bundler": "^1.12.4",
     "parcel-plugin-inliner": "^1.0.14",
-    "prettier": "^1.19.1",
+    "prettier": "^2.0.5",
     "rimraf": "^3.0.2"
   }
 }
