@@ -6,7 +6,7 @@ const subreddits = [
   "frontend",
   "coding",
   "css",
-  "html5"
+  "html5",
 ];
 
 const currentTheme = localStorage.getItem("theme") || null;
@@ -32,9 +32,9 @@ document.querySelector(".theme-switcher").addEventListener(
     const listings = [];
 
     await Promise.all(
-      subreddits.map(async sub => {
+      subreddits.map(async (sub) => {
         const response = await fetch(
-          `https://www.reddit.com/r/${sub}/hot.json?limit=10`
+          `https://www.reddit.com/r/${sub}/hot.json?limit=5`
         );
         const listing = await response.json();
         listings.push(listing);
@@ -47,12 +47,12 @@ document.querySelector(".theme-switcher").addEventListener(
   }
 })();
 
-const appendListingsToDOM = listings => {
+const appendListingsToDOM = (listings) => {
   const fragment = document.createDocumentFragment();
 
   const posts = getSortedPostsFromListings(listings);
 
-  posts.forEach(data => {
+  posts.forEach((data) => {
     const link = document.createElement("a");
     link.textContent = data.title;
     link.href = data.url;
@@ -93,14 +93,16 @@ const appendListingsToDOM = listings => {
   document.querySelector(".posts").append(fragment);
 };
 
-const getSortedPostsFromListings = listings => {
+const getSortedPostsFromListings = (listings) => {
   const posts = listings.reduce((array, listing) => {
-    array.push(...Object.values(listing.data.children).map(item => item.data));
+    array.push(
+      ...Object.values(listing.data.children).map((item) => item.data)
+    );
     return array;
   }, []);
 
   const uniquePosts = posts.reduce((array, currentPost) => {
-    const x = array.find(post => post.url === currentPost.url);
+    const x = array.find((post) => post.url === currentPost.url);
     if (!x) return array.concat([currentPost]);
     return array;
   }, []);

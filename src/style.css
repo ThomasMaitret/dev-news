@@ -18,7 +18,6 @@
 
 body {
   margin: 0;
-  min-height: 100vh;
   font-size: 16px;
   font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
     Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
@@ -43,7 +42,7 @@ li {
   max-width: 900px;
 }
 
-a:not(.skip-link) {
+a {
   font-size: 1.2rem;
   font-weight: 600;
   text-decoration: none;
@@ -72,20 +71,6 @@ span {
   height: 16px;
 }
 
-.skip-link {
-  position: absolute;
-  top: -40px;
-  left: 0;
-  background: var(--primary-color);
-  color: var(--bg-color);
-  padding: 8px;
-  z-index: 100;
-}
-
-.skip-link:focus {
-  top: 0;
-}
-
 .theme-switcher {
   position: fixed;
   right: 1.5rem;
@@ -98,7 +83,7 @@ span {
 }
 
 @media (min-width: 1024px) {
-  a:not(.skip-link) {
+  a {
     font-size: 1.5rem;
   }
 }
