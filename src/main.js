@@ -92,7 +92,6 @@ const appendListingsToDOM = (listings) => {
     fragment.appendChild(li);
   });
 
-  document.querySelector(".loading").remove();
   document.querySelector(".posts").append(fragment);
 };
 
