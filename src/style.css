@@ -56,7 +56,7 @@ a {
   text-decoration: none;
 }
 
-a.link {
+.link {
   font-size: 1.2rem;
   font-weight: 600;
   text-decoration: none;
@@ -111,7 +111,7 @@ span {
 }
 
 @media (min-width: 1024px) {
-  a.link {
+  .link {
     font-size: 1.5rem;
   }
 }
