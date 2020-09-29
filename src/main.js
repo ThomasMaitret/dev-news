@@ -1,3 +1,5 @@
+"use strict";
+
 const subreddits = [
   "angular2",
   "node",

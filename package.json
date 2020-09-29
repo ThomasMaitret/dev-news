@@ -7,8 +7,8 @@
     "last 1 firefox version"
   ],
   "scripts": {
-    "start": "del dist && parcel serve src/index.html",
-    "build": "del dist && parcel build src/index.html --no-source-maps --log-level none"
+    "start": "del dist && parcel serve ./src/index.html",
+    "build": "del dist && parcel build ./src/index.html --no-source-maps"
   },
   "keywords": [],
   "author": "Thomas Maitret-Richard",
@@ -17,7 +17,7 @@
   "devDependencies": {
     "del-cli": "^3.0.1",
     "eslint": "^7.5.0",
-    "parcel": "^2.0.0-beta.1",
+    "parcel": "next",
     "prettier": "^2.0.5"
   }
 }
