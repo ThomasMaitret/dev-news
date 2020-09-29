@@ -7,7 +7,7 @@
     "last 1 firefox version"
   ],
   "engines": {
-    "node": ">=12"
+    "node": ">=node"
   },
   "scripts": {
     "start": "del dist && parcel serve src/index.html",
