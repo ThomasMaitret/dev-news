@@ -51,7 +51,12 @@ li:first-child {
   margin-top: 0;
 }
 
-a:not(.skip-link) {
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+a.link {
   font-size: 1.2rem;
   font-weight: 600;
   text-decoration: none;
@@ -106,7 +111,7 @@ span {
 }
 
 @media (min-width: 1024px) {
-  a:not(.skip-link) {
+  a.link {
     font-size: 1.5rem;
   }
 }

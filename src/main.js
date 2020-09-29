@@ -56,6 +56,7 @@ const appendListingsToDOM = (listings) => {
 
   posts.forEach((data) => {
     const link = document.createElement("a");
+    link.classList.add("link");
     link.textContent = data.title;
     link.href = data.url;
     link.target = "_blank";
@@ -67,9 +68,12 @@ const appendListingsToDOM = (listings) => {
     const date = document.createElement("span");
     date.textContent = new Date(data.created * 1000).toLocaleDateString();
 
-    const subreddit = document.createElement("span");
+    const subreddit = document.createElement("a");
     subreddit.classList.add("subreddit");
     subreddit.textContent = data.subreddit;
+    subreddit.target = "_blank";
+    subreddit.rel = "noopener";
+    subreddit.href = `https://reddit.com${data.permalink}`;
 
     const icon = document.createElement("img");
     icon.alt = `${data.domain}`;
