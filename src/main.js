@@ -14,7 +14,7 @@ const SUBREDDITS = [
 const getTheme = () => {
   const currentTheme = localStorage.getItem("theme");
   if (currentTheme) {
-    document.documentElement.setAttribute("data-theme", currentTheme);
+    document.documentElement.dataset.theme = currentTheme;
   }
 
   document
@@ -27,7 +27,7 @@ const switchTheme = () => {
     document.documentElement.getAttribute("data-theme") === "dark"
       ? "light"
       : "dark";
-  document.documentElement.setAttribute("data-theme", theme);
+  document.documentElement.dataset.theme = theme;
   localStorage.setItem("theme", theme);
 };
 
@@ -58,8 +58,8 @@ const getPosts = async () => {
 };
 
 const appendListingsToDOM = (listings) => {
-  const postsEl = document.querySelector(".posts");
-  postsEl.innerHTML = "";
+  const postsElement = document.querySelector(".posts");
+  postsElement.innerHTML = "";
 
   const fragment = document.createDocumentFragment();
   const posts = getSortedPostsFromListings(listings);
@@ -96,18 +96,18 @@ const appendListingsToDOM = (listings) => {
 
     const li = document.createElement("li");
     li.classList.add("post");
-    li.appendChild(icon);
-    li.appendChild(link);
-    li.appendChild(domain);
-    li.appendChild(document.createElement("br"));
-    li.appendChild(subreddit);
+    li.append(icon);
+    li.append(link);
+    li.append(domain);
+    li.append(document.createElement("br"));
+    li.append(subreddit);
     li.append(" • ");
-    li.appendChild(date);
+    li.append(date);
 
-    fragment.appendChild(li);
+    fragment.append(li);
   });
 
-  postsEl.append(fragment);
+  postsElement.append(fragment);
 };
 
 const getSortedPostsFromListings = (listings) => {
