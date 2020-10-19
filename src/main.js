@@ -1,6 +1,6 @@
 "use strict";
 
-const subreddits = [
+const SUBREDDITS = [
   "angular2",
   "node",
   "javascript",
@@ -11,47 +11,57 @@ const subreddits = [
   "html5",
 ];
 
-const currentTheme = localStorage.getItem("theme") || null;
-if (currentTheme) {
-  document.documentElement.setAttribute("data-theme", currentTheme);
-}
+const getTheme = () => {
+  const currentTheme = localStorage.getItem("theme");
+  if (currentTheme) {
+    document.documentElement.setAttribute("data-theme", currentTheme);
+  }
 
-document.querySelector(".theme-switcher").addEventListener(
-  "click",
-  () => {
-    const theme =
-      document.documentElement.getAttribute("data-theme") === "dark"
-        ? "light"
-        : "dark";
-    document.documentElement.setAttribute("data-theme", theme);
-    localStorage.setItem("theme", theme);
-  },
-  { passive: true }
-);
+  document
+    .querySelector(".theme-switcher")
+    .addEventListener("click", switchTheme, { passive: true });
+};
 
-(async () => {
+const switchTheme = () => {
+  const theme =
+    document.documentElement.getAttribute("data-theme") === "dark"
+      ? "light"
+      : "dark";
+  document.documentElement.setAttribute("data-theme", theme);
+  localStorage.setItem("theme", theme);
+};
+
+const getPostsFromCache = () => {
+  const listings = JSON.parse(localStorage.getItem("listings"));
+  if (listings) appendListingsToDOM(listings);
+};
+
+const getPosts = async () => {
   try {
-    const listings = [];
+    getPostsFromCache();
 
-    await Promise.all(
-      subreddits.map(async (sub) => {
+    const listings = await Promise.all(
+      SUBREDDITS.map(async (sub) => {
         const response = await fetch(
           `https://www.reddit.com/r/${sub}/hot.json?limit=5`
         );
-        const listing = await response.json();
-        listings.push(listing);
+        return await response.json();
       })
     );
 
     appendListingsToDOM(listings);
+
+    localStorage.setItem("listings", JSON.stringify(listings));
   } catch (error) {
     throw new Error(error);
   }
-})();
+};
 
 const appendListingsToDOM = (listings) => {
-  const fragment = document.createDocumentFragment();
+  const postsEl = document.querySelector(".posts");
+  postsEl.innerHTML = "";
 
+  const fragment = document.createDocumentFragment();
   const posts = getSortedPostsFromListings(listings);
 
   posts.forEach((data) => {
@@ -85,6 +95,7 @@ const appendListingsToDOM = (listings) => {
     icon.classList.add("site-icon");
 
     const li = document.createElement("li");
+    li.classList.add("post");
     li.appendChild(icon);
     li.appendChild(link);
     li.appendChild(domain);
@@ -96,8 +107,7 @@ const appendListingsToDOM = (listings) => {
     fragment.appendChild(li);
   });
 
-  document.querySelector(".loading").remove();
-  document.querySelector(".posts").append(fragment);
+  postsEl.append(fragment);
 };
 
 const getSortedPostsFromListings = (listings) => {
@@ -120,3 +130,6 @@ const getSortedPostsFromListings = (listings) => {
 
   return sortedPosts;
 };
+
+getTheme();
+getPosts();
