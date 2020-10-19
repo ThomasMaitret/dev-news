@@ -8,7 +8,7 @@
   ],
   "type": "module",
   "scripts": {
-    "start": "sirv ./src",
+    "start": "parcel serve ./src/index.html",
     "build": "node ./bundle.js"
   },
   "keywords": [],
@@ -19,8 +19,8 @@
     "eslint": "^7.11.0",
     "eslint-config-prettier": "^6.13.0",
     "eslint-plugin-unicorn": "^23.0.0",
-    "prettier": "^2.1.2",
-    "sirv-cli": "^1.0.8"
+    "parcel": "next",
+    "prettier": "^2.1.2"
   },
   "dependencies": {
     "@node-minify/core": "^6.1.0",
