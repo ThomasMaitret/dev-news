@@ -6,9 +6,9 @@ import fs from "fs-extra";
 
 const DIRECTORY = "dist";
 
-fs.emptyDirSync(DIRECTORY);
+fs.removeSync(DIRECTORY);
 fs.ensureDirSync(DIRECTORY);
-fs.copySync("./public", DIRECTORY);
+fs.copySync("./src/favicon.svg", `${DIRECTORY}/favicon.svg`);
 
 minify({
   compressor: uglifyES,
