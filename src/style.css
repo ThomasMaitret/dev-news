@@ -25,6 +25,20 @@ body {
   color: var(--primary-color);
 }
 
+.skip-link {
+  position: absolute;
+  top: -40px;
+  left: 0;
+  background: #000000;
+  color: white;
+  padding: 8px;
+  z-index: 100;
+}
+
+.skip-link:focus {
+  top: 0;
+}
+
 .container {
   padding: 0 1.5rem;
   margin-right: auto;
