@@ -16,15 +16,17 @@
   "license": "ISC",
   "sideEffects": false,
   "devDependencies": {
+    "eslint": "^7.11.0",
+    "eslint-config-prettier": "^6.13.0",
+    "eslint-plugin-unicorn": "^23.0.0",
+    "prettier": "^2.1.2",
+    "sirv-cli": "^1.0.8"
+  },
+  "dependencies": {
     "@node-minify/core": "^6.1.0",
     "@node-minify/cssnano": "^6.1.0",
     "@node-minify/html-minifier": "^6.1.0",
     "@node-minify/uglify-es": "^6.1.0",
-    "eslint": "^7.11.0",
-    "eslint-config-prettier": "^6.13.0",
-    "eslint-plugin-unicorn": "^23.0.0",
-    "fs-extra": "^9.0.1",
-    "prettier": "^2.1.2",
-    "sirv-cli": "^1.0.8"
+    "fs-extra": "^9.0.1"
   }
 }
