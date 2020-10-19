@@ -1,7 +1,9 @@
+"use strict";
+
 import minify from "@node-minify/core";
 import htmlMinifier from "@node-minify/html-minifier";
 import cssnano from "@node-minify/cssnano";
-import uglifyES from "@node-minify/uglify-es";
+import terser from "@node-minify/terser";
 import fs from "fs-extra";
 
 const DIRECTORY = "dist";
@@ -11,9 +13,12 @@ fs.ensureDirSync(DIRECTORY);
 fs.copySync("./src/favicon.svg", `${DIRECTORY}/favicon.svg`);
 
 minify({
-  compressor: uglifyES,
+  compressor: terser,
   input: "./src/main.js",
   output: `./${DIRECTORY}/main.js`,
+  options: {
+    module: true,
+  },
 });
 minify({
   compressor: htmlMinifier,
