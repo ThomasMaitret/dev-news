@@ -7,7 +7,7 @@ const SUBREDDITS = [
   "html5",
   "javascript",
   "node",
-  "tyescript",
+  "typescript",
   "webdev",
 ];
 
