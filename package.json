@@ -2,31 +2,20 @@
   "name": "dev-news",
   "version": "1.0.0",
   "description": "Developer News",
-  "browserslist": [
-    "last 1 chrome version",
-    "last 1 firefox version"
-  ],
-  "type": "module",
   "scripts": {
-    "start": "parcel serve ./src/index.html",
-    "build": "node ./bundle.js"
+    "start": "snowpack dev",
+    "build": "snowpack build"
   },
-  "keywords": [],
   "author": "Thomas Maitret-Richard",
   "license": "ISC",
-  "sideEffects": false,
   "devDependencies": {
-    "eslint": "^7.11.0",
-    "eslint-config-prettier": "^6.13.0",
-    "eslint-plugin-unicorn": "^23.0.0",
-    "parcel": "next",
-    "prettier": "^2.1.2"
+    "@snowpack/plugin-optimize": "^0.2.13",
+    "eslint": "^7.18.0",
+    "eslint-config-prettier": "^7.2.0",
+    "eslint-plugin-unicorn": "^27.0.0",
+    "prettier": "^2.2.1"
   },
   "dependencies": {
-    "@node-minify/core": "^6.1.0",
-    "@node-minify/cssnano": "^6.1.0",
-    "@node-minify/html-minifier": "^6.1.0",
-    "@node-minify/terser": "^6.1.0",
-    "fs-extra": "^9.0.1"
+    "snowpack": "^3.0.11"
   }
 }

@@ -64,7 +64,7 @@ const appendListingsToDOM = (listings) => {
   const fragment = document.createDocumentFragment();
   const posts = getSortedPostsFromListings(listings);
 
-  posts.forEach((data) => {
+  for (const data of posts) {
     const link = document.createElement("a");
     link.classList.add("link");
     link.textContent = data.title;
@@ -105,7 +105,7 @@ const appendListingsToDOM = (listings) => {
     li.append(date);
 
     fragment.append(li);
-  });
+  }
 
   postsElement.append(fragment);
 };
@@ -120,7 +120,7 @@ const getSortedPostsFromListings = (listings) => {
 
   const uniquePosts = posts.reduce((array, currentPost) => {
     const x = array.find((post) => post.url === currentPost.url);
-    if (!x) return array.concat([currentPost]);
+    if (!x) return [...array, currentPost];
     return array;
   }, []);
 
