@@ -2,13 +2,13 @@
 
 const SUBREDDITS = [
   "angular2",
-  "node",
-  "javascript",
-  "webdev",
-  "frontend",
-  "coding",
   "css",
+  "frontend",
   "html5",
+  "javascript",
+  "node",
+  "tyescript",
+  "webdev",
 ];
 
 const getTheme = () => {
