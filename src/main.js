@@ -10,40 +10,28 @@ const SUBREDDITS = [
   "typescript",
   "webdev",
 ];
+const LIMIT = 5;
 
-const getTheme = () => {
-  const currentTheme = localStorage.getItem("theme");
-  if (currentTheme) {
-    document.documentElement.dataset.theme = currentTheme;
-  }
-
-  document
-    .querySelector(".theme-switcher")
-    .addEventListener("click", switchTheme, { passive: true });
-};
-
-const switchTheme = () => {
+function switchTheme() {
   const theme =
     document.documentElement.getAttribute("data-theme") === "dark"
       ? "light"
       : "dark";
   document.documentElement.dataset.theme = theme;
   localStorage.setItem("theme", theme);
-};
+}
 
-const getPostsFromCache = () => {
+function getPostsFromCache() {
   const listings = JSON.parse(localStorage.getItem("listings"));
   if (listings) appendListingsToDOM(listings);
-};
+}
 
-const getPosts = async () => {
+async function getPosts() {
   try {
-    getPostsFromCache();
-
     const listings = await Promise.all(
       SUBREDDITS.map(async (sub) => {
         const response = await fetch(
-          `https://www.reddit.com/r/${sub}/hot.json?limit=5`
+          `https://www.reddit.com/r/${sub}/hot.json?limit=${LIMIT}`
         );
         return await response.json();
       })
@@ -55,9 +43,9 @@ const getPosts = async () => {
   } catch (error) {
     throw new Error(error);
   }
-};
+}
 
-const appendListingsToDOM = (listings) => {
+function appendListingsToDOM(listings) {
   const postsElement = document.querySelector(".posts");
   postsElement.innerHTML = "";
 
@@ -108,28 +96,29 @@ const appendListingsToDOM = (listings) => {
   }
 
   postsElement.append(fragment);
-};
+}
 
-const getSortedPostsFromListings = (listings) => {
-  const posts = listings.reduce((array, listing) => {
-    array.push(
-      ...Object.values(listing.data.children).map((item) => item.data)
-    );
-    return array;
-  }, []);
+function getSortedPostsFromListings(listings) {
+  const finalPosts = [];
 
-  const uniquePosts = posts.reduce((array, currentPost) => {
-    const x = array.find((post) => post.url === currentPost.url);
-    if (!x) return [...array, currentPost];
-    return array;
-  }, []);
+  const allPosts = listings.map((listing) => listing.data.children);
+  for (const posts of allPosts) {
+    for (const post of posts) {
+      finalPosts.push(post.data);
+    }
+  }
 
-  const sortedPosts = uniquePosts.sort(
+  return finalPosts.sort(
     (a, b) => new Date(b.created * 1000) - new Date(a.created * 1000)
   );
+}
 
-  return sortedPosts;
-};
+function prepareThemeSwitcher() {
+  document
+    .querySelector(".theme-switcher")
+    .addEventListener("click", switchTheme, { passive: true });
+}
 
-getTheme();
+prepareThemeSwitcher();
+getPostsFromCache();
 getPosts();
