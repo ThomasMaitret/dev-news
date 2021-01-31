@@ -21,25 +21,18 @@ function switchTheme() {
   localStorage.setItem("theme", theme);
 }
 
-function getPostsFromCache() {
-  const listings = JSON.parse(localStorage.getItem("listings"));
-  if (listings) appendListingsToDOM(listings);
-}
-
 async function getPosts() {
   try {
     const listings = await Promise.all(
       SUBREDDITS.map(async (sub) => {
         const response = await fetch(
-          `https://www.reddit.com/r/${sub}/hot.json?limit=${LIMIT}`
+          `https://www.reddit.com/r/${sub}/new.json?limit=${LIMIT}`
         );
         return await response.json();
       })
     );
 
     appendListingsToDOM(listings);
-
-    localStorage.setItem("listings", JSON.stringify(listings));
   } catch (error) {
     throw new Error(error);
   }
@@ -59,9 +52,6 @@ function appendListingsToDOM(listings) {
     link.href = data.url;
     link.target = "_blank";
     link.rel = "noopener";
-
-    const domain = document.createElement("span");
-    domain.textContent = ` (${data.domain})`;
 
     const date = document.createElement("span");
     date.textContent = new Date(data.created * 1000).toLocaleDateString();
@@ -83,14 +73,12 @@ function appendListingsToDOM(listings) {
     icon.classList.add("site-icon");
 
     const li = document.createElement("li");
+    const title = document.createElement("span");
+    title.classList.add("title");
+    title.append(icon, link);
+
     li.classList.add("post");
-    li.append(icon);
-    li.append(link);
-    li.append(domain);
-    li.append(document.createElement("br"));
-    li.append(subreddit);
-    li.append(" • ");
-    li.append(date);
+    li.append(title, subreddit, " • ", date);
 
     fragment.append(li);
   }
@@ -119,6 +107,25 @@ function prepareThemeSwitcher() {
     .addEventListener("click", switchTheme, { passive: true });
 }
 
+function createSkeletonNodes() {
+  const skeletonsNumber = LIMIT * SUBREDDITS.length;
+  const posts = document.querySelector(".posts");
+
+  for (let index = 0; index < skeletonsNumber; index++) {
+    const skeleton = document.createElement("li");
+    skeleton.classList.add("post");
+
+    const title = document.createElement("div");
+    title.classList.add("line-skeleton", "title-skeleton");
+    const subtitle = document.createElement("div");
+    subtitle.classList.add("line-skeleton", "subtitle-skeleton");
+
+    skeleton.append(title, subtitle);
+
+    posts.append(skeleton);
+  }
+}
+
 prepareThemeSwitcher();
-getPostsFromCache();
+createSkeletonNodes();
 getPosts();

@@ -18,6 +18,8 @@
         --primary-color: #222;
         --secondary-color: #666;
         --bg-color: rgb(240, 240, 240);
+        --skeleton-color: rgb(209, 209, 209);
+        --skeleton-loading-color: rgb(167, 167, 167);
       }
 
       [data-theme="dark"] {
@@ -72,7 +74,7 @@
         list-style: none;
         margin: 2rem 0;
         content-visibility: auto;
-        contain-intrinsic-size: 75px;
+        contain-intrinsic-size: 60px;
       }
 
       .post:first-child {
@@ -94,10 +96,6 @@
         text-decoration: none;
         color: var(--primary-color);
         line-height: 2rem;
-      }
-
-      span {
-        color: var(--secondary-color);
       }
 
       .subreddit {
@@ -122,6 +120,60 @@
         border-radius: 30px;
         cursor: pointer;
         border: none;
+      }
+
+      .title {
+        overflow: hidden;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 1;
+      }
+
+      .line-skeleton {
+        position: relative;
+        overflow: hidden;
+        display: block;
+        background-color: var(--skeleton-color);
+        margin-bottom: 0.5rem;
+        width: 100%;
+        border-radius: 2px;
+      }
+
+      .title-skeleton {
+        height: 29px;
+        width: 75%;
+      }
+
+      .subtitle-skeleton {
+        height: 20px;
+        width: 20%;
+      }
+
+      .line-skeleton::after {
+        content: "";
+        animation: ssc-loading 1s infinite;
+        height: 100%;
+        left: 0;
+        position: absolute;
+        right: 0;
+        top: 0;
+        transform: translateX(-100%);
+        z-index: 1;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          var(--skeleton-loading-color),
+          transparent
+        );
+      }
+
+      @keyframes ssc-loading {
+        from {
+          transform: translateX(-100%);
+        }
+        to {
+          transform: translateX(100%);
+        }
       }
 
       @media (min-width: 1024px) {
