@@ -87,18 +87,31 @@ function appendListingsToDOM(listings) {
 }
 
 function getSortedPostsFromListings(listings) {
-  const finalPosts = [];
-
+  const initialPosts = [];
   const allPosts = listings.map((listing) => listing.data.children);
   for (const posts of allPosts) {
     for (const post of posts) {
-      finalPosts.push(post.data);
+      initialPosts.push(post.data);
     }
   }
 
-  return finalPosts.sort(
+  const sortedPosts = initialPosts.sort(
     (a, b) => new Date(b.created * 1000) - new Date(a.created * 1000)
   );
+  const uniquePosts = getUnique(sortedPosts, "url");
+  return uniquePosts;
+}
+
+function getUnique(array, property) {
+  const uniqueArray = [];
+
+  for (const item of array) {
+    if (!uniqueArray.some((element) => element[property] === item[property])) {
+      uniqueArray.push(item);
+    }
+  }
+
+  return uniqueArray;
 }
 
 function prepareThemeSwitcher() {
