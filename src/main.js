@@ -46,10 +46,16 @@ function appendListingsToDOM(listings) {
   const posts = getSortedPostsFromListings(listings);
 
   for (const data of posts) {
+    const redditUrl = `https://reddit.com${data.permalink}`;
+
     const link = document.createElement("a");
     link.classList.add("link");
     link.textContent = data.title;
-    link.href = data.url;
+    if (data.domain.startsWith("self.")) {
+      link.href = redditUrl;
+    } else {
+      link.href = data.url;
+    }
     link.target = "_blank";
     link.rel = "noopener";
 
@@ -61,7 +67,7 @@ function appendListingsToDOM(listings) {
     subreddit.textContent = data.subreddit;
     subreddit.target = "_blank";
     subreddit.rel = "noopener";
-    subreddit.href = `https://reddit.com${data.permalink}`;
+    subreddit.href = redditUrl;
 
     const icon = document.createElement("img");
     icon.alt = `${data.domain}`;
