@@ -10,12 +10,12 @@
   "license": "ISC",
   "devDependencies": {
     "@snowpack/plugin-optimize": "^0.2.13",
-    "eslint": "^7.18.0",
-    "eslint-config-prettier": "^7.2.0",
-    "eslint-plugin-unicorn": "^27.0.0",
+    "eslint": "^7.20.0",
+    "eslint-config-prettier": "^8.1.0",
+    "eslint-plugin-unicorn": "^28.0.2",
     "prettier": "^2.2.1"
   },
   "dependencies": {
-    "snowpack": "^3.0.11"
+    "snowpack": "^3.0.13"
   }
 }
