@@ -50,7 +50,7 @@ function appendListingsToDOM(listings) {
 
     const link = document.createElement("a");
     link.classList.add("link");
-    link.textContent = data.title;
+    link.textContent = decodeHTML(data.title);
     if (data.domain.startsWith("self.")) {
       link.href = redditUrl;
     } else {
@@ -143,6 +143,12 @@ function createSkeletonNodes() {
 
     posts.append(skeleton);
   }
+}
+
+function decodeHTML(text) {
+  let textArea = document.createElement("textarea");
+  textArea.innerHTML = text;
+  return textArea.value;
 }
 
 prepareThemeSwitcher();
