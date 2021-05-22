@@ -1,5 +1,3 @@
-"use strict";
-
 const SUBREDDITS = [
   "angular2",
   "css",
@@ -51,11 +49,7 @@ function appendListingsToDOM(listings) {
     const link = document.createElement("a");
     link.classList.add("link");
     link.textContent = decodeHTML(data.title);
-    if (data.domain.startsWith("self.")) {
-      link.href = redditUrl;
-    } else {
-      link.href = data.url;
-    }
+    link.href = data.domain.startsWith("self.") ? redditUrl : data.url;
     link.target = "_blank";
     link.rel = "noopener";
 
@@ -151,6 +145,6 @@ function decodeHTML(text) {
   return textArea.value;
 }
 
-prepareThemeSwitcher();
-createSkeletonNodes();
 getPosts();
+createSkeletonNodes();
+prepareThemeSwitcher();
