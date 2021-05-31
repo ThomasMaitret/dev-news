@@ -98,7 +98,7 @@ function getSortedPostsFromListings(listings) {
   const sortedPosts = initialPosts.sort(
     (a, b) => new Date(b.created * 1000) - new Date(a.created * 1000)
   );
-  const uniquePosts = getUnique(sortedPosts, "url");
+  const uniquePosts = getUnique(sortedPosts, "title");
   return uniquePosts;
 }
 
