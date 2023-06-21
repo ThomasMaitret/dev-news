@@ -88,7 +88,7 @@ function appendListingsToDOM(listings) {
 
 function getSortedPostsFromListings(listings) {
   const initialPosts = [];
-  const allPosts = listings.map((listing) => listing.data.children);
+  const allPosts = listings.map((listing) => listing?.data?.children).filter(Boolean);
   for (const posts of allPosts) {
     for (const post of posts) {
       initialPosts.push(post.data);
